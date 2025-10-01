@@ -164,6 +164,7 @@ class LinearProbe(nn.Module):
         labels_list: Optional[List[int]] = None,
         prompts: Optional[Union[str, List[str]]] = None,
         save_dir: Optional[str] = None,
+        metrics_filename: Optional[str] = None,
     ):
 
         if prompts is not None:
@@ -257,6 +258,8 @@ class LinearProbe(nn.Module):
             if save_dir:
                 os.makedirs(save_dir, exist_ok=True)
                 metrics_path = os.path.join(save_dir, "eval_metrics.json")
+                if metrics_filename is not None:
+                    metrics_path = os.path.join(save_dir, metrics_filename) 
                 with open(metrics_path, "w") as f:
                     json.dump(metrics, f, indent=4)
                 print(f"Saved metrics at {metrics_path}")
